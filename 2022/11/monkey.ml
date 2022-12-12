@@ -20,10 +20,10 @@ let parse_operation () =
   let str = read_line () in
   let regex = Str.regexp {|Operation: new = old \([\*\+]\) \(.+\)|} in
   let () = ignore Str.(search_forward regex str 0) in
-  let (op, phrase) =
+  let op =
     match Str.matched_group 1 str with
-    | "*" -> ( * ), "is multiplied by"
-    | "+" -> ( + ), "increases by"
+    | "*" -> ( * )
+    | "+" -> ( + )
     | _ -> failwith "op parsing failed!"
   in match Str.matched_group 2 str with
     | "old" -> fun x -> (op x x) / 3
